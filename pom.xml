@@ -46,6 +46,7 @@
             <artifactId>websocket-client</artifactId>
             <version>9.4.12.v20180830</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
