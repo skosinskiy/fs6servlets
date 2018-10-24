@@ -6,10 +6,15 @@ public class Application {
     public static void main(String[] args) throws Exception {
         Server server = new Server(8080);
 
+        ServletAA svtAA = new ServletAA();
 
-        //server.setHandler(new ServletContextHandler(){{
-        //    addServlet(new ServletHolder(new ServletAssets()),"/assets/*");
+        ServletHolder holderAA = new ServletHolder(svtAA);
 
+        ServletContextHandler handler = new ServletContextHandler();
+
+        handler.addServlet(holderAA, "/aa/*");
+
+        server.setHandler(handler);
 
         server.start();
         server.join();
