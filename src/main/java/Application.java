@@ -1,4 +1,7 @@
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.ContextHandler;
+import org.eclipse.jetty.server.handler.ContextHandlerCollection;
+import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
@@ -8,13 +11,22 @@ public class Application {
 
         ServletUser svtUser = new ServletUser();
 
-        ServletContextHandler handler = new ServletContextHandler();
+        final ServletContextHandler handler1 = new ServletContextHandler();
+        handler1.addServlet(new ServletHolder(svtUser), "/user/*");
+        handler1.addServlet(ServletProduct.class, "/product/*");
+        handler1.addServlet("ServletCart", "/cart/*");
 
-        handler.addServlet(new ServletHolder(svtUser), "/user/*");
-        handler.addServlet(ServletProduct.class, "/product/*");
-        handler.addServlet("ServletCart", "/cart/*");
+        ResourceHandler resourceHandler = new ResourceHandler();
+        resourceHandler.setResourceBase("./resources/static");
+        resourceHandler.setDirectoriesListed(true);
 
-        server.setHandler(handler);
+        final ContextHandler handler2= new ContextHandler("/path/*");
+        handler2.setHandler(resourceHandler);
+
+        server.setHandler(new ContextHandlerCollection() {{
+            addHandler(handler1);
+            addHandler(handler2);
+        }});
 
         server.start();
         server.join();
