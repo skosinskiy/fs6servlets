@@ -8,11 +8,11 @@ public class Application {
 
         ServletAA svtAA = new ServletAA();
 
-        ServletHolder holderAA = new ServletHolder(svtAA);
-
         ServletContextHandler handler = new ServletContextHandler();
 
-        handler.addServlet(holderAA, "/aa/*");
+        handler.addServlet(new ServletHolder(svtAA), "/aa/*");
+        handler.addServlet(ServletProduct.class, "/product/*");
+        handler.addServlet("ServletCart", "/cart/*");
 
         server.setHandler(handler);
 
