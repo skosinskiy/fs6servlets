@@ -6,11 +6,11 @@ public class Application {
     public static void main(String[] args) throws Exception {
         Server server = new Server(8080);
 
-        ServletAA svtAA = new ServletAA();
+        ServletUser svtUser = new ServletUser();
 
         ServletContextHandler handler = new ServletContextHandler();
 
-        handler.addServlet(new ServletHolder(svtAA), "/aa/*");
+        handler.addServlet(new ServletHolder(svtUser), "/user/*");
         handler.addServlet(ServletProduct.class, "/product/*");
         handler.addServlet("ServletCart", "/cart/*");
 
