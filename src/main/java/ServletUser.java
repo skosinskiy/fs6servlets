@@ -8,10 +8,7 @@ import java.io.PrintWriter;
 public class ServletUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
-
         PrintWriter w = resp.getWriter();
-        w.write("Hello from JETTY!");
+        w.write("Hello from ServletUser!");
     }
 }
