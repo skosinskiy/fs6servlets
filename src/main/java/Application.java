@@ -4,6 +4,8 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 public class Application {
     public static void main(String[] args) throws Exception {
+        // full Jetty documentation available here
+        // https://www.eclipse.org/jetty/documentation/9.4.12.v20180830/
         Server server = new Server(8080);
 
         ServletUser svtUser = new ServletUser();
