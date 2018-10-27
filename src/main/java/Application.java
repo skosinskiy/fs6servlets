@@ -14,6 +14,7 @@ public class Application {
         handler.addServlet(ServletProduct.class, "/product/*");
         handler.addServlet(ServletAssets.class, "/assets/*");
         handler.addServlet("ServletCart", "/cart/*");
+        handler.addServlet(ServletIndex.class, "/");
 
         server.setHandler(handler);
 
