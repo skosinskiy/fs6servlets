@@ -27,3 +27,9 @@ public class Item {
         this.name = name;
     }
 }
+//
+//json:
+//item = {
+//        value : 213,
+//        name : "admin"
+//        }
