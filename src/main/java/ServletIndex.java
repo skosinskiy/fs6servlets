@@ -9,17 +9,15 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ServletIndex extends HttpServlet {
-    //private static final String PATH = "/index.html";
-
-
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // https://freemarker.apache.org
 
         FreeMarker templates = new FreeMarker("templates");
 
-        List<Item> items = IntStream.range(1, 5).mapToObj(val -> new Item(val, "Name " + val)).collect(Collectors.toList());
+        List<Item> items = IntStream.range(1, 5)
+                .mapToObj(val -> new Item(val, "Name " + val))
+                .collect(Collectors.toList());
 
         HashMap<String, Object> data = new HashMap<>();
         data.put("user", new User("Alex"));

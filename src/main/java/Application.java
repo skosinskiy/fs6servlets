@@ -7,11 +7,13 @@ public class Application {
         // full Jetty documentation available here
         // https://www.eclipse.org/jetty/documentation/9.4.12.v20180830/
         Server server = new Server(8080);
+        Calculator calc = new Calculator();
 
         ServletUser svtUser = new ServletUser();
 
         ServletContextHandler handler = new ServletContextHandler();
 
+        handler.addServlet(new ServletHolder(new ServletCalculator(calc)), "/calc/*");
         handler.addServlet(new ServletHolder(svtUser), "/user/*");
         handler.addServlet(ServletProduct.class, "/product/*");
         handler.addServlet(ServletAssets.class, "/assets/*");
