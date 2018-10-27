@@ -5,13 +5,13 @@ import org.eclipse.jetty.servlet.ServletHolder;
 public class Application {
     public static void main(String[] args) throws Exception {
         Server server = new Server(8080);
-        Calculator calc = new Calculator();
+        CalculatorManager manager = new CalculatorManager();
 
         ServletUser svtUser = new ServletUser();
 
         ServletContextHandler handler = new ServletContextHandler();
 
-        handler.addServlet(new ServletHolder(new ServletCalculator(calc)), "/calc/*");
+        handler.addServlet(new ServletHolder(new ServletCalculator(manager)), "/calc/*");
         handler.addServlet(new ServletHolder(svtUser), "/user/*");
         handler.addServlet(ServletProduct.class, "/product/*");
         handler.addServlet(ServletAssets.class, "/assets/*");
