@@ -1,7 +1,16 @@
 public class Calculator {
+    private final int id;
     private boolean hasData = false;
     private int x;
     private int y;
+
+    public Calculator(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public void setData(String x, String y) {
         setData(
