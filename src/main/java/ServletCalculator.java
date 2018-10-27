@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ServletCalculator extends HttpServlet {
     private Calculator calculator;
@@ -17,8 +18,11 @@ public class ServletCalculator extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        calculator.setData(1,2);
-
-        int add = calculator.add();
+        Map<String, String[]> m = req.getParameterMap();
+        if (m.isEmpty()) {
+            resp.getWriter().write(String.valueOf(calculator.add()));
+        } else {
+            calculator.setData(m.get("x")[0],m.get("y")[0]);
+        }
     }
 }

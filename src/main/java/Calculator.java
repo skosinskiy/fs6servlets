@@ -3,6 +3,12 @@ public class Calculator {
     private int x;
     private int y;
 
+    public void setData(String x, String y) {
+        setData(
+                Integer.parseInt(x),
+                Integer.parseInt(y));
+    }
+
     public void setData(int x, int y) {
         this.x = x;
         this.y = y;
