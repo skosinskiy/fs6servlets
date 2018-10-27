@@ -3,14 +3,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ServletIndex extends HttpServlet {
-    private static final String PATH = "templates/index.html";
+    //private static final String PATH = "/index.html";
+
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Files.copy(Paths.get(PATH), resp.getOutputStream());
+        // https://freemarker.apache.org
+
+        FreeMarker templates = new FreeMarker("templates");
+
+        List<Item> items = IntStream.range(1, 5).mapToObj(val -> new Item(val, "Name " + val)).collect(Collectors.toList());
+
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("user", new User("Alex"));
+        data.put("items", items);
+
+        templates.render("index.html", data, resp);
     }
 }
