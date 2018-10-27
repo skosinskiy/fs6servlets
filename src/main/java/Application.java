@@ -5,6 +5,8 @@ import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
+import java.util.ArrayList;
+
 public class Application {
     public static void main(String[] args) throws Exception {
         Server server = new Server(8080);
@@ -27,6 +29,11 @@ public class Application {
             addHandler(handler1);
             addHandler(handler2);
         }});
+
+//        ContextHandlerCollection hc = new ContextHandlerCollection();
+//        hc.addHandler(handler1);
+//        hc.addHandler(handler2);
+//        server.setHandler(hc);
 
         server.start();
         server.join();
