@@ -4,12 +4,21 @@ public class CalculatorManager {
     private final HashMap<Integer, Calculator> calculators = new HashMap<>();
     private int counter = 0;
 
-    private Calculator createNew() {
+    private Calculator create(int id) {
+        Calculator c = new Calculator(id);
+        calculators.put(id, c);
+        return c;
+    }
+
+    public Calculator getOrCreate() {
         int next = ++counter;
-        return calculators.put(next, new Calculator(next));
+        Calculator c = new Calculator(next);
+        calculators.put(next, c);
+        return c;
     }
 
     public Calculator getOrCreate(int id) {
-        return calculators.getOrDefault(id, createNew());
+        return calculators.containsKey(id) ?
+                calculators.get(id) : create(id);
     }
 }

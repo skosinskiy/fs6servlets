@@ -31,4 +31,9 @@ public class Calculator {
             throw new IllegalArgumentException("There is no data to calculation");
         }
     }
+
+    @Override
+    public String toString() {
+        return String.format("I'm calculator, my ID=%d", id);
+    }
 }
