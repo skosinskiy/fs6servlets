@@ -21,6 +21,7 @@ public class ServletIndex extends HttpServlet {
 
         HashMap<String, Object> data = new HashMap<>();
         data.put("user", new User("Alex"));
+        data.put("user1", "DIMA");
         data.put("items", items);
 
         templates.render("index.html", data, resp);

@@ -1,6 +1,10 @@
+import org.alexr.trace.filter.FilterServletPrinter;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+
+import javax.servlet.DispatcherType;
+import java.util.EnumSet;
 
 public class Application {
     public static void main(String[] args) throws Exception {
@@ -19,6 +23,7 @@ public class Application {
         handler.addServlet(ServletAssets.class, "/assets/*");
         handler.addServlet("ServletCart", "/cart/*");
         handler.addServlet(ServletIndex.class, "/");
+        handler.addFilter(FilterServletPrinter.class, "/calc/*", EnumSet.of(DispatcherType.INCLUDE, DispatcherType.REQUEST));
 
         server.setHandler(handler);
 
