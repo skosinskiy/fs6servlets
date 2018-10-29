@@ -1,17 +1,9 @@
-import org.eclipse.jetty.servlet.Source;
-
-import javax.servlet.Servlet;
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class ServletCalculator extends HttpServlet {
     private CalculatorManager manager;
@@ -21,24 +13,34 @@ public class ServletCalculator extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Calculator calc;
         Cookie[] cookies = req.getCookies();
         if (cookies == null) {
-            // TODO create cookie
-            // TODO create calculator
+            // create calculator
+            calc = manager.getOrCreate();
+            // create cookie
+            resp.addCookie(new Cookie("id", String.valueOf(calc.getId())));
         } else {
-            // TODO parse cookie
-            // TODO get calculator
+            Cookie c = cookies[0];
+            // parse cookie
+            int id = Integer.parseInt(c.getValue());
+            // get the calculator
+            calc = manager.getOrCreate(id);
         }
-        // TODO stub!
-        Calculator calculator = new Calculator(0);
 
         Map<String, String[]> m = req.getParameterMap();
-        if (m.isEmpty()) {
-            resp.getWriter().write(String.valueOf(calculator.add()));
+        StringBuilder content = new StringBuilder();
+        if (!m.isEmpty()) {
+            calc.setData(m.get("x")[0],m.get("y")[0]);
+            content.append("Data successfully set");
         } else {
-            calculator.setData(m.get("x")[0],m.get("y")[0]);
+            try {
+                content.append(String.format("calculated: %d\n", calc.add()));
+            } catch (IllegalArgumentException e) {
+                content.append(e.getMessage());
+            }
         }
-        long l = System.currentTimeMillis();
+        resp.getWriter().write(content.toString());
     }
 }
