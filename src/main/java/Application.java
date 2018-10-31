@@ -45,6 +45,8 @@ public class Application {
 
         server.setHandler(handler);
 
+        // SESSION ABSTRACTION =============
+        //https://www.baeldung.com/java-servlet-cookies-session
         // Specify the Session ID Manager
         HashSessionIdManager idmanager = new HashSessionIdManager();
         server.setSessionIdManager(idmanager);
@@ -59,6 +61,7 @@ public class Application {
 
         // Put dump inside of SessionHandler
         sessions.setHandler(handler);
+        // SESSION ABSTRACTION =============
 
         server.start();
         server.join();
