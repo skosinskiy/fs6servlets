@@ -49,7 +49,5 @@ public class ServletLogin extends HttpServlet {
         resp.addCookie(new Cookie("UID", String.valueOf(new_id)));
         // redirect
         resp.sendRedirect("/user/login");
-        // create a calculator
-        manager.getOrCreate(new_id);
     }
 }

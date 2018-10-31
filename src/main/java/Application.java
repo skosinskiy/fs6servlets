@@ -26,11 +26,11 @@ public class Application {
 
         ServletContextHandler handler = new ServletContextHandler();
 
-        handler.addServlet(ServletProduct.class, "/product/*");
+        //handler.addServlet(ServletProduct.class, "/product/*");
         handler.addServlet(ServletAssets.class, "/assets/*");
-        handler.addServlet("servlet.ServletCart", "/cart/*");
-        handler.addServlet(ServletIndex.class, "/");
-        handler.addServlet(new ServletHolder(svtUser), "/user/*");
+        //handler.addServlet("servlet.ServletCart", "/cart/*");
+        //handler.addServlet(ServletIndex.class, "/");
+        //handler.addServlet(new ServletHolder(svtUser), "/user/*");
 
         //
         handler.addServlet(new ServletHolder(new ServletLogin(freeMarker, numberGenerator, loginServer, manager)), "/user/login");
