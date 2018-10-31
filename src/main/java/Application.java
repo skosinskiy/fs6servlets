@@ -1,6 +1,10 @@
 import calc.CalculatorManager;
 import org.alexr.trace.filter.FilterServletPrinter;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.ContextHandler;
+import org.eclipse.jetty.server.session.HashSessionIdManager;
+import org.eclipse.jetty.server.session.HashSessionManager;
+import org.eclipse.jetty.server.session.SessionHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import servlet.*;
@@ -40,6 +44,21 @@ public class Application {
         handler.addFilter(FilterServletPrinter.class, "/*", EnumSet.of(DispatcherType.INCLUDE, DispatcherType.REQUEST));
 
         server.setHandler(handler);
+
+        // Specify the Session ID Manager
+        HashSessionIdManager idmanager = new HashSessionIdManager();
+        server.setSessionIdManager(idmanager);
+
+        // Sessions are bound to a context.
+        ContextHandler context = new ContextHandler("/");
+        server.setHandler(context);
+        // Create the SessionHandler (wrapper) to handle the sessions
+        HashSessionManager smanager = new HashSessionManager();
+        SessionHandler sessions = new SessionHandler(smanager);
+        context.setHandler(sessions);
+
+        // Put dump inside of SessionHandler
+        sessions.setHandler(handler);
 
         server.start();
         server.join();
