@@ -1,3 +1,5 @@
+package entity;
+
 public class Item {
 
     private int value;
@@ -6,7 +8,7 @@ public class Item {
     public Item() {
     }
 
-    Item(int value, String name) {
+    public Item(int value, String name) {
         this.value = value;
         this.name = name;
     }

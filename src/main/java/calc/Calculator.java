@@ -1,3 +1,5 @@
+package calc;
+
 public class Calculator {
     private final int id;
     private boolean hasData = false;

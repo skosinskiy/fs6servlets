@@ -1,3 +1,5 @@
+package servlet;
+
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +11,7 @@ import java.io.PrintWriter;
 public class ServletProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().write("Hello from ServletProduct");
+        resp.getWriter().write("Hello from servlet.ServletProduct");
         PrintWriter writer = resp.getWriter();
         ServletOutputStream outputStream = resp.getOutputStream();
     }

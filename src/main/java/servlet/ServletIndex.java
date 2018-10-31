@@ -1,4 +1,9 @@
-import javax.servlet.ServletException;
+package servlet;
+
+import entity.Item;
+import entity.User;
+import util.FreeMarker;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +15,7 @@ import java.util.stream.IntStream;
 
 public class ServletIndex extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         // https://freemarker.apache.org
 
         FreeMarker templates = new FreeMarker("templates");

@@ -1,3 +1,5 @@
+package servlet;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -5,10 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.Map;
 
-public class ServletUser extends HttpServlet {
+public class ServletSample extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // one parameter
@@ -45,6 +46,6 @@ public class ServletUser extends HttpServlet {
 //        cookie.setMaxAge(0);
 //        resp.addCookie(cookie);
 
-        w.write(String.format("Hello id=%s from ServletUser!", id));
+        w.write(String.format("Hello id=%s from servlet.ServletUser!", id));
     }
 }
