@@ -1,3 +1,5 @@
+package calc;
+
 import java.util.HashMap;
 
 public class CalculatorManager {
@@ -20,5 +22,9 @@ public class CalculatorManager {
     public Calculator getOrCreate(int id) {
         return calculators.containsKey(id) ?
                 calculators.get(id) : create(id);
+    }
+
+    public void remove(int id) {
+        calculators.remove(id);
     }
 }

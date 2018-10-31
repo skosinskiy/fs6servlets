@@ -1,3 +1,11 @@
+package servlet;
+
+import calc.Calculator;
+import calc.CalculatorManager;
+import util.FreeMarker;
+import util.LoginServer;
+import util.NumberGenerator;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -6,9 +14,15 @@ import java.io.IOException;
 import java.util.Map;
 
 public class ServletCalculator extends HttpServlet {
-    private CalculatorManager manager;
+    private final FreeMarker freeMarker;
+    private final NumberGenerator numberGenerator;
+    private final LoginServer<String> loginServer;
+    private final CalculatorManager manager;
 
-    public ServletCalculator(CalculatorManager manager) {
+    public ServletCalculator(FreeMarker freeMarker, NumberGenerator numberGenerator, LoginServer<String> loginServer, CalculatorManager manager) {
+        this.freeMarker = freeMarker;
+        this.numberGenerator = numberGenerator;
+        this.loginServer = loginServer;
         this.manager = manager;
     }
 

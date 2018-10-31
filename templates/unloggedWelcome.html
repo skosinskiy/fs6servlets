@@ -8,19 +8,12 @@
     <title>Document</title>
 </head>
 <body>
-<h5>
-    This is index.html<br>
-    Hello, ${user.getName()}<br>
-    Hello, ${user1}<br>
-    ===
-    Hello, ${user.name}
+<h5>hello, enter your name:</h5>
 
-    <#list items as item1>
-    ${item1.value}<br>
-    ${item1.name}<br>
-    </#list>
-
-</h5>
+<form action="login" method="post">
+    <input name="login" class="form-control" placeholder="Login (email)" required>
+    <button type="submit">Login</button>
+</form>
 
 </body>
 </html>
