@@ -22,21 +22,20 @@ public class Application {
         NumberGenerator numberGenerator = new NumberGenerator();
         LoginServer<String> loginServer = new LoginServer<>();
 
-        ServletUser svtUser = new ServletUser();
+        //ServletUser svtUser = new ServletUser();
 
         ServletContextHandler handler = new ServletContextHandler();
 
         //handler.addServlet(ServletProduct.class, "/product/*");
-        handler.addServlet(ServletAssets.class, "/assets/*");
         //handler.addServlet("servlet.ServletCart", "/cart/*");
         //handler.addServlet(ServletIndex.class, "/");
         //handler.addServlet(new ServletHolder(svtUser), "/user/*");
 
-        //
-        handler.addServlet(new ServletHolder(new ServletLogin(freeMarker, numberGenerator, loginServer, manager)), "/user/login");
-        handler.addServlet(new ServletHolder(new ServletLogout(freeMarker, numberGenerator, loginServer, manager)), "/user/logout");
+        handler.addServlet(ServletAssets.class, "/assets/*");
+        handler.addServlet(new ServletHolder(new ServletLogin(freeMarker, numberGenerator, loginServer, manager)), "/login");
+        handler.addServlet(new ServletHolder(new ServletLogout(freeMarker, numberGenerator, loginServer, manager)), "/logout");
         handler.addServlet(new ServletHolder(new ServletCalculator(freeMarker, numberGenerator, loginServer, manager)), "/calc/*");
-        handler.addServlet(new ServletHolder(new ServletRedirectTo("/user/login")), "/*");
+        handler.addServlet(new ServletHolder(new ServletRedirectTo("/login")), "/*");
 
         handler.addFilter(FilterServletPrinter.class, "/*", EnumSet.of(DispatcherType.INCLUDE, DispatcherType.REQUEST));
 

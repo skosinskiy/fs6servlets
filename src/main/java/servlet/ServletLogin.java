@@ -44,7 +44,7 @@ public class ServletLogin extends HttpServlet {
         // put pair id, name into HashMap
         loginServer.login(new_id, name);
         // create calculator with new id
-        manager.getOrCreate(new_id);
+        manager.create(new_id);
         // set a cookie
         resp.addCookie(new Cookie("UID", String.valueOf(new_id)));
         // redirect
