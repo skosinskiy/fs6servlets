@@ -26,20 +26,21 @@ public class ServletList extends HttpServlet {
   private final NumberGenerator numberGenerator;
   private final LoginServer<String> loginServer;
   private final CalculatorManager manager;
+  private final SQLOperations sqlOperations;
 
-  public ServletList(FreeMarker freeMarker, NumberGenerator numberGenerator, LoginServer<String> loginServer, CalculatorManager manager) {
+  public ServletList(FreeMarker freeMarker, NumberGenerator numberGenerator, LoginServer<String> loginServer, CalculatorManager manager, SQLOperations sql) {
     this.freeMarker = freeMarker;
     this.numberGenerator = numberGenerator;
     this.loginServer = loginServer;
     this.manager = manager;
+    this.sqlOperations = sql;
   }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     HashMap<String, Object> data = new HashMap<>();
-    List<Operation> al = new SQLOperations().getOperations();
     data.put("user", "Anybody");
-    data.put("operations", al);
+    data.put("operations", sqlOperations.getOperations());
     freeMarker.render("operationsList.html", data, resp);
   }
 

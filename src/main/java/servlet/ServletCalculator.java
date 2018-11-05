@@ -2,6 +2,7 @@ package servlet;
 
 import calc.Calculator;
 import calc.CalculatorManager;
+import db.SQLOperations;
 import util.FreeMarker;
 import util.LoginServer;
 import util.NumberGenerator;
@@ -19,12 +20,14 @@ public class ServletCalculator extends HttpServlet {
     private final NumberGenerator numberGenerator;
     private final LoginServer<String> loginServer;
     private final CalculatorManager manager;
+    private final SQLOperations sqlOperations;
 
-    public ServletCalculator(FreeMarker freeMarker, NumberGenerator numberGenerator, LoginServer<String> loginServer, CalculatorManager manager) {
+    public ServletCalculator(FreeMarker freeMarker, NumberGenerator numberGenerator, LoginServer<String> loginServer, CalculatorManager manager, SQLOperations sql) {
         this.freeMarker = freeMarker;
         this.numberGenerator = numberGenerator;
         this.loginServer = loginServer;
         this.manager = manager;
+        this.sqlOperations = sql;
     }
 
     @Override
@@ -44,6 +47,7 @@ public class ServletCalculator extends HttpServlet {
             StringBuilder content = new StringBuilder();
             if (!m.isEmpty()) {
                 calc.setData(m.get("x")[0],m.get("y")[0]);
+
                 content.append("Data successfully set");
             } else {
                 try {
