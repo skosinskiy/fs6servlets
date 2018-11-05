@@ -8,46 +8,48 @@ import util.NumberGenerator;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.HashMap;
 
 public class ServletLogin extends HttpServlet {
-    private final FreeMarker freeMarker;
-    private final NumberGenerator numberGenerator;
-    private final LoginServer<String> loginServer;
-    private final CalculatorManager manager;
+  private final FreeMarker freeMarker;
+  private final NumberGenerator numberGenerator;
+  private final LoginServer<String> loginServer;
+  private final CalculatorManager manager;
 
-    public ServletLogin(FreeMarker freeMarker, NumberGenerator numberGenerator, LoginServer<String> loginServer, CalculatorManager manager) {
-        this.freeMarker = freeMarker;
-        this.numberGenerator = numberGenerator;
-        this.loginServer = loginServer;
-        this.manager = manager;
+  public ServletLogin(FreeMarker freeMarker, NumberGenerator numberGenerator, LoginServer<String> loginServer, CalculatorManager manager) {
+    this.freeMarker = freeMarker;
+    this.numberGenerator = numberGenerator;
+    this.loginServer = loginServer;
+    this.manager = manager;
+  }
+
+  @Override
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    Cookie[] cookies = req.getCookies();
+    if (cookies == null) {
+      freeMarker.render("unloggedWelcome.html", resp);
+    } else {
+      freeMarker.render("loggedWelcome.html", new HashMap<String, Object>() {{ put("name", loginServer.getName(cookies[0].getValue()));}}, resp);
     }
+  }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Cookie[] cookies = req.getCookies();
-        if (cookies == null) {
-            freeMarker.render("unloggedWelcome.html", resp);
-        } else {
-            freeMarker.render("loggedWelcome.html", new HashMap<String, Object>() {{ put("name", loginServer.getName(cookies[0].getValue()));}}, resp);
-        }
-    }
+  @Override
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    HttpSession s = req.getSession();
+    s.setAttribute("x","6");
+    Enumeration<String> attributeNames = s.getAttributeNames();
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession s = req.getSession();
-        s.setAttribute("x","6");
-
-        String name = req.getParameter("login");
-        // create new id
-        int new_id = numberGenerator.create();
-        // put pair id, name into HashMap
-        loginServer.login(new_id, name);
-        // create calculator with new id
-        manager.create(new_id);
-        // set a cookie
-        resp.addCookie(new Cookie("UID", String.valueOf(new_id)));
-        // redirect
-        resp.sendRedirect("/user/login");
-    }
+    String name = req.getParameter("login");
+    // create new id
+    int new_id = numberGenerator.create();
+    // put pair id, name into HashMap
+    loginServer.login(new_id, name);
+    // create calculator with new id
+    manager.create(new_id);
+    // set a cookie
+    resp.addCookie(new Cookie("UID", String.valueOf(new_id)));
+    // redirect
+    resp.sendRedirect("/user/login");
+  }
 }
