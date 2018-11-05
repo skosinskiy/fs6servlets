@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SQLOperations {
-  private final static String INSERT = "INSERT INTO T11(x, y) VALUES(?,?)";
-  private final static String SELECT_ALL = "SELECT * FROM T11 ORDER BY ID";
+  private final String INSERT = "INSERT INTO T11(x, y) VALUES(?,?)";
+  private final String SELECT_ALL = "SELECT * FROM T11 ORDER BY ID";
+  private final String DELETE_BY_ID = "DELETE FROM T11 WHERE ID = ?";
 
   public List<Operation> getOperations() {
     List<Operation> operations = new ArrayList<>();
@@ -38,9 +39,18 @@ public class SQLOperations {
       statement.setLong(2, y);
       //statement.setString();
       statement.executeUpdate();
-    }catch (SQLException e){
+    } catch (SQLException e){
       e.printStackTrace();
     }
   }
 
+  public void deleteOperation(int id) {
+    try(PreparedStatement statement = DbConnection.getConnection().prepareStatement(DELETE_BY_ID)){
+      statement.setInt(1, id);
+      //statement.setString();
+      statement.executeUpdate();
+    } catch (SQLException e){
+      e.printStackTrace();
+    }
+  }
 }
