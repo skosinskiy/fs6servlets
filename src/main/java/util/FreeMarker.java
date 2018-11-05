@@ -5,6 +5,7 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import patterns.FreemarkerContent;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -36,6 +37,10 @@ public final class FreeMarker {
 
     public void render(final String templateFile, final HttpServletResponse resp) throws IOException {
         render(templateFile, new HashMap<>(), resp);
+    }
+
+    public void render(final String templateFile, FreemarkerContent content, final HttpServletResponse resp) throws IOException {
+        render(templateFile, content.get(), resp);
     }
 
     public void render(final String templateFile, final Map<String, Object> data, final HttpServletResponse resp) throws IOException {
