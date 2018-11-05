@@ -46,8 +46,10 @@ public class ServletCalculator extends HttpServlet {
             Map<String, String[]> m = req.getParameterMap();
             StringBuilder content = new StringBuilder();
             if (!m.isEmpty()) {
-                calc.setData(m.get("x")[0],m.get("y")[0]);
-
+                int x = Integer.parseInt(m.get("x")[0]);
+                int y = Integer.parseInt(m.get("y")[0]);
+                calc.setData(x, y);
+                sqlOperations.insertOperation(x, y);
                 content.append("Data successfully set");
             } else {
                 try {
