@@ -2,6 +2,7 @@ package servlet;
 
 import calc.CalculatorManager;
 import db.DbConnection;
+import db.SQLOperations;
 import org.eclipse.jetty.servlet.Source;
 import util.FreeMarker;
 import util.LoginServer;
@@ -36,31 +37,10 @@ public class ServletList extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     HashMap<String, Object> data = new HashMap<>();
-    List<Operation> al = getOperations();
+    List<Operation> al = new SQLOperations().getOperations();
     data.put("user", "Anybody");
     data.put("operations", al);
     freeMarker.render("operationsList.html", data, resp);
   }
 
-  public List<Operation> getOperations() {
-    List<Operation> operations = new ArrayList<>();
-    String sql = "SELECT * FROM T11 ORDER BY ID";
-
-    try (PreparedStatement statement = DbConnection.getConnection().prepareStatement(sql)){
-      //statement.setLong(1, myID);
-
-      ResultSet rSet = statement.executeQuery();
-      while (rSet.next()) {
-        operations.add(new Operation(
-            rSet.getInt("id"),
-            rSet.getInt("x"),
-            rSet.getInt("y")
-        ));
-      }
-
-    } catch (SQLException e){
-      e.printStackTrace();
-    }
-    return operations;
-  }
 }
