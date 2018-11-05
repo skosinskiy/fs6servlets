@@ -1,5 +1,5 @@
 import calc.CalculatorManager;
-import org.alexr.trace.filter.FilterServletPrinter;
+//import org.alexr.trace.filter.FilterServletPrinter;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -35,9 +35,10 @@ public class Application {
         handler.addServlet(new ServletHolder(new ServletLogin(freeMarker, numberGenerator, loginServer, manager)), "/login");
         handler.addServlet(new ServletHolder(new ServletLogout(freeMarker, numberGenerator, loginServer, manager)), "/logout");
         handler.addServlet(new ServletHolder(new ServletCalculator(freeMarker, numberGenerator, loginServer, manager)), "/calc/*");
+        handler.addServlet(new ServletHolder(new ServletList(freeMarker, numberGenerator, loginServer, manager)), "/list/*");
         handler.addServlet(new ServletHolder(new ServletRedirectTo("/login")), "/*");
 
-        handler.addFilter(FilterServletPrinter.class, "/*", EnumSet.of(DispatcherType.INCLUDE, DispatcherType.REQUEST));
+        //handler.addFilter(FilterServletPrinter.class, "/*", EnumSet.of(DispatcherType.INCLUDE, DispatcherType.REQUEST));
 
         server.setHandler(handler);
 
