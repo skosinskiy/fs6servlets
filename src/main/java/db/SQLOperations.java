@@ -11,6 +11,7 @@ import java.util.List;
 public class SQLOperations {
   private final String INSERT = "INSERT INTO T11(x, y) VALUES(?,?)";
   private final String SELECT_ALL = "SELECT * FROM T11 ORDER BY ID";
+  //private final String SELECT_ALL = "SELECT ID,X,Y FROM T11 ORDER BY ID";
   private final String DELETE_BY_ID = "DELETE FROM T11 WHERE ID = ?";
   private final String UPDATE_BY_ID = "UPDATE T11 set x=333,y=555 WHERE id = ?";
 
