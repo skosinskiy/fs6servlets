@@ -10,11 +10,13 @@
 <body>
 <h5>
     Hello, ${user}
+    Hello, ${user}
     This is list of operations:<br>
 </h5>
 
 <div>
     <#list operations as operation>
+    ${operation.getX()} / ${operation.y} //
     ${operation.x} / ${operation.y} //
     <form action="/delete" method="post">
         <input name="id" value=${operation.id} type="hidden">

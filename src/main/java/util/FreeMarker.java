@@ -25,13 +25,17 @@ public final class FreeMarker {
      */
     private final Configuration config;
 
-    public FreeMarker(final String path) throws IOException {
+    public FreeMarker(final String path) {
         this.config = new Configuration(Configuration.VERSION_2_3_28) {{
-            setDirectoryForTemplateLoading(new File(path));
-            setDefaultEncoding(String.valueOf(StandardCharsets.UTF_8));
-            setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-            setLogTemplateExceptions(false);
-            setWrapUncheckedExceptions(true);
+            try {
+                setDirectoryForTemplateLoading(new File(path));
+                setDefaultEncoding(String.valueOf(StandardCharsets.UTF_8));
+                setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+                setLogTemplateExceptions(false);
+                setWrapUncheckedExceptions(true);
+            } catch (IOException e) {
+                throw new IllegalArgumentException(e);
+            }
         }};
     }
 

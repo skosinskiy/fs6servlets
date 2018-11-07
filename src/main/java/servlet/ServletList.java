@@ -28,6 +28,16 @@ public class ServletList extends HttpServlet {
   private final CalculatorManager manager;
   private final SQLOperations sqlOperations;
 
+  public ServletList(ApplicationCore core) {
+    this(
+            core.freeMarker(),
+            core.numberGenerator(),
+            core.loginServer(),
+            core.manager(),
+            core.sqlOperations()
+    );
+  }
+
   public ServletList(FreeMarker freeMarker, NumberGenerator numberGenerator, LoginServer<String> loginServer, CalculatorManager manager, SQLOperations sql) {
     this.freeMarker = freeMarker;
     this.numberGenerator = numberGenerator;
