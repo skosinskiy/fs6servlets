@@ -38,6 +38,7 @@ public class Application {
         handler.addServlet(new ServletHolder(new ServletLogout(freeMarker, numberGenerator, loginServer, manager)), "/logout");
         handler.addServlet(new ServletHolder(new ServletCalculator(freeMarker, numberGenerator, loginServer, manager, sql)), "/calc/*");
         handler.addServlet(new ServletHolder(new ServletList(freeMarker, numberGenerator, loginServer, manager, sql)), "/list/*");
+        handler.addServlet(new ServletHolder(new ServletDelete(freeMarker, numberGenerator, loginServer, manager, sql)), "/delete/*");
         handler.addServlet(new ServletHolder(new ServletRedirectTo("/login")), "/*");
 
         //handler.addFilter(FilterServletPrinter.class, "/*", EnumSet.of(DispatcherType.INCLUDE, DispatcherType.REQUEST));

@@ -15,7 +15,13 @@
 
 <div>
     <#list operations as operation>
-    ${operation.id} / ${operation.x} /${operation.y}<br>
+    ${operation.x} / ${operation.y} //
+    <form action="/delete" method="post">
+        <input name="id" value=${operation.id} type="hidden">
+        <input type="submit" value="Delete record">
+    </form>
+
+    <br>
     </#list>
 </div>
 
